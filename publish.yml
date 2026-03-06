@@ -1,0 +1,17 @@
+name: Publication Site
+on: [push]
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installation et déploiement Nginx
+        run: |
+          sudo apt update
+          sudo apt install -y nginx
+          sudo mkdir -p /var/www/site
+          sudo cp index.html /var/www/site/index.html
+          # Copie de la config Nginx si besoin, sinon on modifie la config par défaut
+          sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+          # ... (ajoute ici tes commandes de config Nginx vues dans le PDF)
+          sudo systemctl restart nginx
